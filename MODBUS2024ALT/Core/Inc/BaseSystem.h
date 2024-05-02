@@ -49,6 +49,7 @@ typedef struct {
 	uint16_t GripperState;
 	int Z_Status;
 	int reset;
+	int StateFrame;
 }State;
 extern State status;
 

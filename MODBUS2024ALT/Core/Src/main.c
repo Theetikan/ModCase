@@ -118,17 +118,35 @@ int main(void)
     /* USER CODE BEGIN 3 */
 
 	  //function Modbus
+	  status.StateFrame = registerFrame[0x01].U16;
 	  Modbus_Protocal_Worker();
 	  Heartbeat();
 	  Routine();
 	  VacuumOn_Off();
 	  Gripper_Movement();
-	  Set_Shelves();
-	  GetGoalPoint();
-	  RunPointMode();
-	  SetHome();
-	  GetPick_PlaceOrder();
-	  RunJogMode();
+
+
+	  switch(status.StateFrame) {
+	  	  	  case 0://Idle case
+	  	  		  //check case
+
+	          case 1:
+	        	  Set_Shelves();
+	              break;
+	          case 2:
+	        	  SetHome();
+	              break;
+	          case 4:
+	        	  GetPick_PlaceOrder();
+	        	  RunJogMode();
+	              break;
+	          case 8:
+	        	  RunPointMode();
+	        	  GetGoalPoint();
+	          	  break;
+	      }
+
+
   }
   /* USER CODE END 3 */
 }

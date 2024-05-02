@@ -15,10 +15,7 @@ void Heartbeat(){
 		 	  if(HAL_GetTick() >= timestamp)
 		 	  {
 		 		  timestamp += 200;
-				  //if (registerFrame[0].U16 == 18537) {
-		 		 //registerFrame[0].U16 = 0x00;
 		 		  registerFrame[0x00].U16 = 22881;
-				  //}
 		 	  }
 }
 
@@ -67,7 +64,6 @@ void Gripper_Movement(){ // อ่านค่า Gripper จากการก�
 }
 
 void Set_Shelves(){ //Setting Shelve Position
-	if (registerFrame[0x01].U16 == 1){
 		status.Z_Status = 1;
 		registerFrame[0x10].U16 = status.Z_Status; // z-axis update z-xis moving status to "set shelves"
 
@@ -78,29 +74,27 @@ void Set_Shelves(){ //Setting Shelve Position
 		registerFrame[0x25].U16 = shelve.ShelvePosition_3;
 		registerFrame[0x26].U16 = shelve.ShelvePosition_4;
 		registerFrame[0x27].U16 = shelve.ShelvePosition_5;
-
+		status.Z_Status = 0;
 		// reset z-axis moving state after finish Jogging
-		//if (Finish Jogging){
+		//if (Finish Jogging)
 		if (status.reset == 1){ //if reset state == 1 จะทำการรีเซ็ตระบบให้กดทุกอย่างได้เหมือนเดิม
-		status.reset = 0;
+		status.reset = 0; //ไว้เช็คว่าเข้า condition มั้ย
 		registerFrame[0x01].U16 = 0;
 
 		status.Z_Status = 0; // z-axis reset BaseSystem status
 		registerFrame[0x10].U16 = status.Z_Status;
 		}
-		//}
 
-	}
 }
 void GetGoalPoint(){
-	if(registerFrame[0x01].U16 == 8){ // if run point mode
+	//if(registerFrame[0x01].U16 == 8){ // if run point mode
 		Value.GoalPoint = (registerFrame[0x30].U16)/10 ; //Get Goal point from BaseSytem(Point Mode) that we pick/write After pressing Run Button
 		 //ค่าที่ได้จาก BaseSytem จะได้ค่าที่เรากรอก*10 ดังนั้นต้องหาร10 ถึงจะได้ค่าจริงที่เรากรอก
-	}
+	//}
 }
 
 void RunPointMode(){
-	if(registerFrame[0x01].U16 == 8){ //if run point mode
+	//if(registerFrame[0x01].U16 == 8){ //if run point mode
 		status.Z_Status = 16;
 		registerFrame[0x10].U16 = status.Z_Status; //update Z Status "Go Point"
 
@@ -115,10 +109,10 @@ void RunPointMode(){
 		//}
 		}
 		}
-	}
+	//}
 
 void SetHome(){
-	if(registerFrame[0x01].U16 == 2){ //BaseSystem Status "Home"
+	//if(registerFrame[0x01].U16 == 2){ //BaseSystem Status "Home"
 		status.Z_Status = 2;
 		registerFrame[0x10].U16 = status.Z_Status; // update Z-axis moving status "Home"
 
@@ -133,19 +127,19 @@ void SetHome(){
 		registerFrame[0x10].U16 = status.Z_Status; // reset z-axis moving state after finish homing
 		}
 		//}
-		}
+		//}
 }
 
 void GetPick_PlaceOrder(){
-	if(registerFrame[0x01].U16 == 4){ // after pressing run button on Jogmode (before running)
+	//if(registerFrame[0x01].U16 == 4){ // after pressing run button on Jogmode (before running)
 		Value.PickOder = registerFrame[0x21].U16 ; // ค่าชั้นที่ต้อง Pick from BaseSystem
 		Value.PlaceOder = registerFrame[0x22].U16 ;// ค่าชั้นที่ต้อง Place from BaseSystem
 		//ค่าที่ได้จะเรียงติดกัน ex.ถ้าเซ็ตค่าในUIชั้นแรกที่ต้อง Pick คือ ชั้น1-5 ตามลำดับ ค่าชั้นที่ต้องPick จะได้ 12345
-	}
+	//}
 }
 
 void RunJogMode(){
-	if(registerFrame[0x01].U16 == 4){ //after pressing run button on Jogmode
+	//if(registerFrame[0x01].U16 == 4){ //after pressing run button on Jogmode
 
 		//Loop{
 		//Pick
@@ -173,6 +167,7 @@ void RunJogMode(){
 		registerFrame[0x10].U16 = status.Z_Status; // after finish jogging
 		//}
 		}
-	}
+	//}
 }
+
 

@@ -648,7 +648,6 @@ void GetGoalPoint(){
  80006f8:	4b05      	ldr	r3, [pc, #20]	; (8000710 <GetGoalPoint+0x2c>)
  80006fa:	801a      	strh	r2, [r3, #0]
 		 //ค่าที่ได้จาก BaseSytem จะได้ค่าที่เรากรอก*10 ดังนั้นต้องหาร10 ถึงจะได้ค่าจริงที่เรากรอก
-	//}
 }
  80006fc:	bf00      	nop
  80006fe:	46bd      	mov	sp, r7
@@ -702,7 +701,6 @@ void RunPointMode(){
  8000746:	b29a      	uxth	r2, r3
  8000748:	4b04      	ldr	r3, [pc, #16]	; (800075c <RunPointMode+0x48>)
  800074a:	841a      	strh	r2, [r3, #32]
-		//}
 		}
 		}
  800074c:	bf00      	nop
@@ -714,7 +712,6 @@ void RunPointMode(){
  800075c:	2000099c 	.word	0x2000099c
 
 08000760 <SetHome>:
-	//}
 
 void SetHome(){
  8000760:	b480      	push	{r7}
@@ -759,8 +756,6 @@ void SetHome(){
  8000794:	4b04      	ldr	r3, [pc, #16]	; (80007a8 <SetHome+0x48>)
  8000796:	841a      	strh	r2, [r3, #32]
 		}
-		//}
-		//}
 }
  8000798:	bf00      	nop
  800079a:	46bd      	mov	sp, r7
@@ -787,7 +782,6 @@ void GetPick_PlaceOrder(){
  80007c0:	4b04      	ldr	r3, [pc, #16]	; (80007d4 <GetPick_PlaceOrder+0x28>)
  80007c2:	809a      	strh	r2, [r3, #4]
 		//ค่าที่ได้จะเรียงติดกัน ex.ถ้าเซ็ตค่าในUIชั้นแรกที่ต้อง Pick คือ ชั้น1-5 ตามลำดับ ค่าชั้นที่ต้องPick จะได้ 12345
-	//}
 }
  80007c4:	bf00      	nop
  80007c6:	46bd      	mov	sp, r7
@@ -860,9 +854,7 @@ void RunJogMode(){
  800081a:	b29a      	uxth	r2, r3
  800081c:	4b04      	ldr	r3, [pc, #16]	; (8000830 <RunJogMode+0x58>)
  800081e:	841a      	strh	r2, [r3, #32]
-		//}
 		}
-	//}
 }
  8000820:	bf00      	nop
  8000822:	46bd      	mov	sp, r7

@@ -90,7 +90,6 @@ void GetGoalPoint(){
 	//if(registerFrame[0x01].U16 == 8){ // if run point mode
 		Value.GoalPoint = (registerFrame[0x30].U16)/10 ; //Get Goal point from BaseSytem(Point Mode) that we pick/write After pressing Run Button
 		 //ค่าที่ได้จาก BaseSytem จะได้ค่าที่เรากรอก*10 ดังนั้นต้องหาร10 ถึงจะได้ค่าจริงที่เรากรอก
-	//}
 }
 
 void RunPointMode(){
@@ -106,10 +105,8 @@ void RunPointMode(){
 		registerFrame[0x01].U16 = 0; //Reset BaseSystem Status
 		status.Z_Status = 0;
 		registerFrame[0x10].U16 = status.Z_Status; // reset z-axis moving state after finish jogging
-		//}
 		}
 		}
-	//}
 
 void SetHome(){
 	//if(registerFrame[0x01].U16 == 2){ //BaseSystem Status "Home"
@@ -126,8 +123,6 @@ void SetHome(){
 		status.Z_Status = 0;
 		registerFrame[0x10].U16 = status.Z_Status; // reset z-axis moving state after finish homing
 		}
-		//}
-		//}
 }
 
 void GetPick_PlaceOrder(){
@@ -135,7 +130,6 @@ void GetPick_PlaceOrder(){
 		Value.PickOder = registerFrame[0x21].U16 ; // ค่าชั้นที่ต้อง Pick from BaseSystem
 		Value.PlaceOder = registerFrame[0x22].U16 ;// ค่าชั้นที่ต้อง Place from BaseSystem
 		//ค่าที่ได้จะเรียงติดกัน ex.ถ้าเซ็ตค่าในUIชั้นแรกที่ต้อง Pick คือ ชั้น1-5 ตามลำดับ ค่าชั้นที่ต้องPick จะได้ 12345
-	//}
 }
 
 void RunJogMode(){
@@ -165,9 +159,7 @@ void RunJogMode(){
 
 		status.Z_Status = 0;
 		registerFrame[0x10].U16 = status.Z_Status; // after finish jogging
-		//}
 		}
-	//}
 }
 
 

@@ -35,6 +35,12 @@ extern u16u8_t registerFrame[200];
 //void SetHome();
 //void GetPick_PlaceOrder();
 //void RunJogMode();
+typedef struct {
+	uint16_t speed;
+	uint16_t position;
+	uint16_t acce;
+}Z_Value;
+extern Z_Value Z;
 
 typedef struct {
 	uint16_t GoalPoint;
@@ -50,6 +56,7 @@ typedef struct {
 	int Z_Status;
 	int reset;
 	int StateFrame;
+	int Place;
 }State;
 extern State status;
 

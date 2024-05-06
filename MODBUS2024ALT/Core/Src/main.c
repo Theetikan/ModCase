@@ -127,9 +127,6 @@ int main(void)
 
 
 	  switch(status.StateFrame) {
-	  	  	  case 0://Idle case
-	  	  		  //check case
-
 	          case 1:
 	        	  Set_Shelves();
 	              break;

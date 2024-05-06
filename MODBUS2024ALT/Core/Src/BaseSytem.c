@@ -9,6 +9,7 @@
 State status;
 ShelvePosition shelve;
 GetValue Value;
+Z_Value Z;
 
 void Heartbeat(){
 	static uint64_t timestamp = 0;
@@ -34,13 +35,17 @@ void Routine(){
 		registerFrame[0x04].U16 = 0b0010;
 		//}
 		//else if (lead switch2 == 1){
-		registerFrame[0x04].U16 = 0b0000;
-		registerFrame[0x04].U16 = 0b0001;//Gripper Movement Actual Status = 'Lead Switch 2 Status'
+//		registerFrame[0x04].U16 = 0b0000;
+//		registerFrame[0x04].U16 = 0b0001;//Gripper Movement Actual Status = 'Lead Switch 2 Status'
 		//}
-		registerFrame[0x10].U16 = status.Z_Status; //Z-axis Moving Status = Set Shelve
-		registerFrame[0x11].U16 = 19*10; //Z-axis Actual Position = 19 ค่าจริง*10
-		registerFrame[0x12].U16 = 20*10; //Z-axis Actual Speed = 20
-		registerFrame[0x13].U16 = 21*10; //Z-axis Acceleration = 21
+		Z.position = 190;
+		Z.speed = 200;
+		Z.acce = 210;
+
+		registerFrame[0x10].U16 = status.Z_Status; //Z-axis Moving Status
+		registerFrame[0x11].U16 = Z.position; //Z-axis Actual Position = 19 ค่าจริง*10
+		registerFrame[0x12].U16 = Z.speed; //Z-axis Actual Speed = 20
+		registerFrame[0x13].U16 = Z.acce; //Z-axis Acceleration = 21
 		registerFrame[0x40].U16 = 22*10; //X-axis Actual Position = 22
 		}
 }
@@ -88,7 +93,7 @@ void Set_Shelves(){ //Setting Shelve Position
 }
 void GetGoalPoint(){
 	//if(registerFrame[0x01].U16 == 8){ // if run point mode
-		Value.GoalPoint = (registerFrame[0x30].U16)/10 ; //Get Goal point from BaseSytem(Point Mode) that we pick/write After pressing Run Button
+		Value.GoalPoint = (registerFrame[0x21].U16)/10 ; //Get Goal point from BaseSytem(Point Mode) that we pick/write After pressing Run Button
 		 //ค่าที่ได้จาก BaseSytem จะได้ค่าที่เรากรอก*10 ดังนั้นต้องหาร10 ถึงจะได้ค่าจริงที่เรากรอก
 }
 
@@ -98,13 +103,14 @@ void RunPointMode(){
 		registerFrame[0x10].U16 = status.Z_Status; //update Z Status "Go Point"
 
 		//going to point (use Goal point(0x30) for target z-axis position)
-
 		//if (Gripper at GoalPoint){
 		if (status.reset == 1){ //if reset state == 1 จะทำการรีเซ็ตระบบให้กดทุกอย่างได้เหมือนเดิม
 		status.reset = 0;
 		registerFrame[0x01].U16 = 0; //Reset BaseSystem Status
 		status.Z_Status = 0;
 		registerFrame[0x10].U16 = status.Z_Status; // reset z-axis moving state after finish jogging
+
+		//Z.position = registerFrame[0x21].U16;
 		}
 		}
 
@@ -122,6 +128,7 @@ void SetHome(){
 
 		status.Z_Status = 0;
 		registerFrame[0x10].U16 = status.Z_Status; // reset z-axis moving state after finish homing
+		//registerFrame[0x40].U16 = 0 ;
 		}
 }
 
@@ -144,8 +151,11 @@ void RunJogMode(){
 		//When finish Pick from round(i) shelve --> Go Place
 
 		//Place
-		status.Z_Status = 8;
-		registerFrame[0x10].U16 = status.Z_Status; // go place state
+		if (status.Place == 1){
+			status.Z_Status = 8;
+			registerFrame[0x10].U16 = status.Z_Status; // go place state
+
+		}
 
 		//Going to Place from Shelve 5 round(Use PlaceOder to do task)
 		//When finish Place from round(i) shelve --> Return Pick
@@ -159,6 +169,7 @@ void RunJogMode(){
 
 		status.Z_Status = 0;
 		registerFrame[0x10].U16 = status.Z_Status; // after finish jogging
+
 		}
 }
 

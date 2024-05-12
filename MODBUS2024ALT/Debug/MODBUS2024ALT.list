@@ -649,9 +649,9 @@ void GetGoalPoint(){
  80006f4:	b480      	push	{r7}
  80006f6:	af00      	add	r7, sp, #0
 	//if(registerFrame[0x01].U16 == 8){ // if run point mode
-		Value.GoalPoint = (registerFrame[0x21].U16)/10 ; //Get Goal point from BaseSytem(Point Mode) that we pick/write After pressing Run Button
+		Value.GoalPoint = (registerFrame[0x30].U16)/10 ; //Get Goal point from BaseSytem(Point Mode) that we pick/write After pressing Run Button
  80006f8:	4b07      	ldr	r3, [pc, #28]	; (8000718 <GetGoalPoint+0x24>)
- 80006fa:	f8b3 3042 	ldrh.w	r3, [r3, #66]	; 0x42
+ 80006fa:	f8b3 3060 	ldrh.w	r3, [r3, #96]	; 0x60
  80006fe:	4a07      	ldr	r2, [pc, #28]	; (800071c <GetGoalPoint+0x28>)
  8000700:	fba2 2303 	umull	r2, r3, r2, r3
  8000704:	08db      	lsrs	r3, r3, #3

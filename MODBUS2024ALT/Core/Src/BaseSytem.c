@@ -93,7 +93,7 @@ void Set_Shelves(){ //Setting Shelve Position
 }
 void GetGoalPoint(){
 	//if(registerFrame[0x01].U16 == 8){ // if run point mode
-		Value.GoalPoint = (registerFrame[0x21].U16)/10 ; //Get Goal point from BaseSytem(Point Mode) that we pick/write After pressing Run Button
+		Value.GoalPoint = (registerFrame[0x30].U16)/10 ; //Get Goal point from BaseSytem(Point Mode) that we pick/write After pressing Run Button
 		 //ค่าที่ได้จาก BaseSytem จะได้ค่าที่เรากรอก*10 ดังนั้นต้องหาร10 ถึงจะได้ค่าจริงที่เรากรอก
 }
 
